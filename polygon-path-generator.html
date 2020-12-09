@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Polygon Path Generator</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+      }
+
+      #MainContent {
+        position: relative;
+        flex: 1 0 auto;
+      }
+
+      #SideContent {
+        height: 100%;
+        width: 500px;
+        max-width: 25%;
+        overflow: auto;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      #map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      button {
+        width: 100%;
+        padding: 15px;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        margin-top: 25px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCXH9ISlsTsOepRKt-rfehhQiSLPt_IPM&callback=initMap&libraries=drawing" defer></script>
+  </head>
+  <body>
+    <div id="MainContent">
+      <div id="map"></div>
+    </div>
+    <div id="SideContent">
+      <button id="DrawPolygonBtn" type="button">
+        Draw Polygon
+      </button>
+
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody id="TableBody">
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function initMap() {
+        var currPolygon = null;
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 18,
+          center: {
+            lat: 10.7317003,
+            lng: 122.5487129
+          }
+        });
+
+        function refreshButton() {
+          const isDrawingMode = !!drawingManager.getDrawingMode();
+          document.querySelector('#DrawPolygonBtn').innerHTML = isDrawingMode ? 'Cancel' : 'Draw Polygon';
+        }
+
+        function resetCurrPolygon() {
+          if (currPolygon) currPolygon.setMap(null);
+          document.querySelector('#TableBody').innerHTML = '';
+        }
+
+        const drawingManager = new google.maps.drawing.DrawingManager({
+          drawingControl: false
+        });
+
+        drawingManager.setMap(map);
+        drawingManager.addListener('polygoncomplete', function (polygon) {
+          resetCurrPolygon();
+          drawingManager.setDrawingMode(null);
+          currPolygon = polygon;
+
+          document.querySelector('#TableBody').innerHTML = '';
+          const path = polygon.getPath();
+          path.forEach(function (item) {
+            var row = '<tr>';
+            row += '<td>' + item.lat() + '</td>';
+            row += '<td>' + item.lng() + '</td>';
+            row += '</tr>';
+            document.querySelector('#TableBody').innerHTML += row;
+          });
+          refreshButton();
+        });
+
+        document.querySelector('#DrawPolygonBtn').addEventListener('click', function () {
+          const mode = drawingManager.getDrawingMode() ? null : 'polygon';
+          drawingManager.setDrawingMode(mode);
+          resetCurrPolygon();
+          refreshButton();
+        });
+      }
+    </script>
+  </body>
+</html>

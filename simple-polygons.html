@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Simple Polygons</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCXH9ISlsTsOepRKt-rfehhQiSLPt_IPM&callback=initMap" defer></script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+
+        // create map instance
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 18,
+          center: {
+            lat: 10.7317003, // CPU coordinates
+            lng: 122.5487129
+          }
+        });
+
+
+        //====================================
+        // HALF MOON
+        //====================================
+        const HALF_MOON_AREA_PATH = [
+          { lat: 10.733215801519394, lng: 122.54909863044477 },
+          { lat: 10.732907473162582, lng: 122.54894976784445 },
+          { lat: 10.732639991470059, lng: 122.54894842673994 },
+          { lat: 10.732418627131734, lng: 122.549049009578 },
+          { lat: 10.732228886141312, lng: 122.54925688077665 },
+          { lat: 10.732143239127454, lng: 122.54951169063307 },
+          { lat: 10.732149827360137, lng: 122.54980941583372 },
+          { lat: 10.732230203787484, lng: 122.54998241831518 },
+          { lat: 10.732348791919941, lng: 122.55014066864706 }
+        ];
+        const halfMoonPolygon = new google.maps.Polygon({
+          paths: HALF_MOON_AREA_PATH,
+          strokeColor: "#ff0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#ff0000",
+          fillOpacity: 0.35,
+        });
+        halfMoonPolygon.setMap(map);
+        halfMoonPolygon.addListener('click', function () {
+          alert('Half Moon was clicked!');
+        });
+
+
+        //====================================
+        // MARY THOMAS
+        //====================================
+        const MARY_THOMAS_AREA_PATH = [
+          { lat: 10.733208478088113, lng: 122.54848919977796 },
+          { lat: 10.733118878424925, lng: 122.548587100407 },
+          { lat: 10.732688009085408, lng: 122.54821561445844 },
+          { lat: 10.732544385835762, lng: 122.54834436049116 },
+          { lat: 10.732553609349265, lng: 122.54843689670217 },
+          { lat: 10.7325641505072, lng: 122.54845567216528 },
+          { lat: 10.732453468330531, lng: 122.54847981204641 },
+          { lat: 10.732436338942433, lng: 122.54834301938665 },
+          { lat: 10.732448197749681, lng: 122.54829473962438 },
+          { lat: 10.732506174133999, lng: 122.54822231998098 },
+          { lat: 10.73251539764866, lng: 122.54821293224943 },
+          { lat: 10.732508809423928, lng: 122.54820354451788 },
+          { lat: 10.732682738508654, lng: 122.5480090843643 }
+        ];
+        const maryThomasPolygon = new google.maps.Polygon({
+          paths: MARY_THOMAS_AREA_PATH,
+          strokeColor: "#327ba8",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#327ba8",
+          fillOpacity: 0.35,
+        });
+        maryThomasPolygon.setMap(map);
+        maryThomasPolygon.addListener('click', function () {
+          alert('Mary Thomas was clicked!');
+        });
+
+
+        //====================================
+        // OLD VALENTINE
+        //====================================
+        const OLD_VALENTINE_AREA_PATH = [
+          { lat: 10.73280396175094, lng:	122.54848275246684 },
+          { lat: 10.732694597306232, lng:	122.54850823345248 },
+          { lat: 10.73271436196785, lng:	122.54864100279872 },
+          { lat: 10.73252066822834, lng:	122.54866916599337 },
+          { lat: 10.732483774168639, lng:	122.54852030339305 },
+          { lat: 10.732373091962547, lng:	122.54853639664714 },
+          { lat: 10.732423162489383, lng:	122.54884619178836 },
+          { lat: 10.732537797611666, lng:	122.54882607522075 },
+          { lat: 10.732536479966841, lng:	122.54879388871257 },
+          { lat: 10.732742032491933, lng:	122.54875633778636 },
+          { lat: 10.732747303067669, lng:	122.54879254760806 },
+          { lat: 10.732864573353856, lng:	122.54877511324946 }
+        ];
+        const oldValentinePolygon = new google.maps.Polygon({
+          paths: OLD_VALENTINE_AREA_PATH,
+          strokeColor: "#32a85b",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#32a85b",
+          fillOpacity: 0.35,
+        });
+        oldValentinePolygon.setMap(map);
+        oldValentinePolygon.addListener('click', function () {
+          alert('Old Valentine was clicked!');
+        });
+
+
+        //====================================
+        // NEW VALENTINE
+        //====================================
+        const NEW_VALENTINE_AREA_PATH = [
+          { lat: 10.732418677279197, lng:	122.54875203660202 },
+          { lat: 10.732343571484734, lng:	122.5486930280037 },
+          { lat: 10.732160418679655, lng:	122.54892101576996 },
+          { lat: 10.73211561869605, lng:	122.5488915114708 },
+          { lat: 10.732300089174146, lng:	122.54866888812256 },
+          { lat: 10.732243430396434, lng:	122.54861122062874 },
+          { lat: 10.732007571649469, lng:	122.5488915114708 },
+          { lat: 10.732057642236821, lng:	122.54893710902405 },
+          { lat: 10.73208663046783, lng:	122.54890760472489 },
+          { lat: 10.732127477515892, lng:	122.5489464967556 },
+          { lat: 10.732110348109309, lng:	122.54898538878632 },
+          { lat: 10.73218150102258, lng:	122.54904305628014 }
+        ];
+        const newValentinePolygon = new google.maps.Polygon({
+          paths: NEW_VALENTINE_AREA_PATH,
+          strokeColor: "#a8328e",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#a8328e",
+          fillOpacity: 0.35,
+        });
+        newValentinePolygon.setMap(map);
+        newValentinePolygon.addListener('click', function () {
+          alert('New Valentine was clicked!');
+        });
+      }
+    </script>
+  </body>
+</html>
